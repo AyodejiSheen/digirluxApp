@@ -1,6 +1,3 @@
-import { View, Text } from 'react-native';
-import { LoginScreen } from './src/screens/loginScreen';
-
 import {
   useFonts,
   Inter_100Thin,
@@ -13,7 +10,25 @@ import {
   Inter_800ExtraBold,
   Inter_900Black,
 } from '@expo-google-fonts/inter';
-import { RegisterSreen } from './src/screens/registerScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+
+import { View, Text, ScrollView, StatusBar } from 'react-native';
+import { TailwindProvider } from 'tailwindcss-react-native';
+import BottomNav from './navigations/bottomNav';
+import { CartScreen } from './screens/cartScreen';
+import { HomeScreen } from './screens/homeScreen';
+import { LoginScreen } from './screens/loginScreen';
+import { OrderScreen } from './screens/orderScreen';
+import { PaymentScreen } from './screens/paymentScreen';
+import { PlaceOrder } from './screens/placeOrder';
+import { ProfileScreen } from './screens/profileScreen';
+import { RegisterSreen } from './screens/registerScreen';
+import { ShippingScreen } from './screens/shippingScreen';
+import { SingleProductScreen } from './screens/SingleProductScreen';
+
 
 
 
@@ -38,11 +53,23 @@ export default function App() {
 
   }
 
+  const Stack = createNativeStackNavigator();
+
 
   return (
-    <View className="flex-1 items-center justify-center" >
-      <RegisterSreen />
-    </View>
+    <>
+      <TailwindProvider>
+        <NavigationContainer>
+          <StatusBar />
+            <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Register" component={RegisterSreen} />
+              <Stack.Screen name="Order" component={OrderScreen} />
+              <Stack.Screen name="Bottom" component={BottomNav} />
+            </Stack.Navigator>
+        </NavigationContainer>
+      </TailwindProvider>
+    </>
   );
 
 
